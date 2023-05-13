@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 
-import { User } from '../schemas/user.schema';
+import { User } from '../../user/schemas/user.schema';
 
 @ObjectType()
 export class AuthPayload {

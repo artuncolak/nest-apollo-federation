@@ -4,6 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { join } from 'path';
 
+import { AuthModule } from './auth/auth.module';
 import { config } from './config';
 import { UserModule } from './user/user.module';
 
@@ -13,12 +14,9 @@ import { UserModule } from './user/user.module';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
-    MongooseModule.forRootAsync({
-      useFactory: () => ({
-        uri: config.database.connectionString,
-      }),
-    }),
+    MongooseModule.forRoot(config.database.connectionString),
     UserModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
