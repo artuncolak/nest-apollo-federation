@@ -4,7 +4,8 @@
   "author": "Artun Çolak <artuncolak97@gmail.com>",
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev",
+    "dev:services": "turbo run start:dev --filter=!gateway",
+    "dev:gateway": "turbo run start:dev --filter=gateway",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },

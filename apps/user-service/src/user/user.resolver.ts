@@ -1,5 +1,11 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Query,
+  Resolver,
+  ResolveReference,
+} from '@nestjs/graphql';
 import { Public } from 'src/decorators/public.decorator';
 
 import { RegisterUserInput } from './dto/register-user.input';
@@ -38,5 +44,10 @@ export class UserResolver {
   @Mutation((returns) => User)
   async deleteUser(@Args('email') email: string): Promise<User> {
     return this.userService.delete(email);
+  }
+
+  @ResolveReference()
+  resolveReference(reference: { __typename: string; _id: string }) {
+    return this.userService.findById(reference._id);
   }
 }
