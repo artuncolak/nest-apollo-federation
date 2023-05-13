@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "name": "ikas-backend-assignment",
+  "author": "Artun Çolak <artuncolak97@gmail.com>",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "devDependencies": {
+    "eslint": "^8.40.0",
+    "prettier": "^2.8.8",
+    "turbo": "^1.9.4",
+    "eslint-config-app": "*"
+  }
+}
