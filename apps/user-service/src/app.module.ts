@@ -5,9 +5,9 @@ import {
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
+import { config } from 'config';
 
 import { AuthModule } from './auth/auth.module';
-import { config } from './config';
 import { UserModule } from './user/user.module';
 
 @Module({

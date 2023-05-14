@@ -4,7 +4,8 @@
   "author": "Artun Çolak <artuncolak97@gmail.com>",
   "scripts": {
     "build": "turbo run build",
-    "dev:services": "turbo run start:dev --filter=!gateway",
+    "transpile": "turbo run transpile",
+    "dev:services": "dotenv -- turbo run start:dev --filter=!gateway",
     "dev:gateway": "turbo run start:dev --filter=gateway",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
@@ -14,9 +15,10 @@
     "apps/*"
   ],
   "devDependencies": {
+    "dotenv-cli": "^7.2.1",
     "eslint": "^8.40.0",
+    "eslint-config-app": "*",
     "prettier": "^2.8.8",
-    "turbo": "^1.9.4",
-    "eslint-config-app": "*"
+    "turbo": "^1.9.4"
   }
 }

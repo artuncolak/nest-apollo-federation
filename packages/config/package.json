@@ -1,0 +1,16 @@
+{
+  "name": "config",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "start:dev": "tsc --watch"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "tsconfig": "*",
+    "typescript": "^5.0.4"
+  }
+}

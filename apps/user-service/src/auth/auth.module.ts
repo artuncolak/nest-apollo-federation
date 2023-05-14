@@ -2,13 +2,12 @@ import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { config } from 'src/config';
+import { config } from 'config';
+import { JwtAuthGuard, JwtStrategy } from 'shared';
 import { UserModule } from 'src/user/user.module';
 
 import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
-import { JwtAuthGuard } from './guards/auth.guard';
-import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
   imports: [
