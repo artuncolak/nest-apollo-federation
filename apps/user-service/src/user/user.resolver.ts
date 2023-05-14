@@ -6,7 +6,7 @@ import {
   Resolver,
   ResolveReference,
 } from '@nestjs/graphql';
-import { Public } from 'src/decorators/public.decorator';
+import { Public } from 'shared';
 
 import { RegisterUserInput } from './dto/register-user.input';
 import { UpdateUserInput } from './dto/update-user.input';

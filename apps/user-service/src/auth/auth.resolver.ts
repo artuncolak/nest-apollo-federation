@@ -1,5 +1,5 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { Public } from 'src/decorators/public.decorator';
+import { Public } from 'shared';
 
 import { AuthService } from './auth.service';
 import { AuthPayload } from './dto/auth-payload.dto';

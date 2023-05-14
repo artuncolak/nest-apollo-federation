@@ -1,5 +1,4 @@
-import { IntrospectAndCompose } from '@apollo/gateway';
-import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
+import { IntrospectAndCompose, RemoteGraphQLDataSource } from '@apollo/gateway';
 import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -8,14 +7,24 @@ import { GraphQLModule } from '@nestjs/graphql';
   imports: [
     GraphQLModule.forRoot<ApolloGatewayDriverConfig>({
       driver: ApolloGatewayDriver,
-      gateway: {
-        supergraphSdl: new IntrospectAndCompose({
-          subgraphs: [{ name: 'user', url: 'http://localhost:3001/graphql' }],
-        }),
-      },
       server: {
-        playground: false,
-        plugins: [ApolloServerPluginLandingPageLocalDefault()],
+        context: ({ req }) => ({ authorization: req.headers.authorization }),
+      },
+      gateway: {
+        buildService: ({ url }) => {
+          return new RemoteGraphQLDataSource({
+            url,
+            willSendRequest({ request, context }: any) {
+              request.http.headers.set('authorization', context.authorization);
+            },
+          });
+        },
+        supergraphSdl: new IntrospectAndCompose({
+          subgraphs: [
+            { name: 'user', url: 'http://localhost:3001/graphql' },
+            { name: 'movie', url: 'http://localhost:3002/graphql' },
+          ],
+        }),
       },
     }),
   ],
