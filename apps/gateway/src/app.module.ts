@@ -23,6 +23,7 @@ import { GraphQLModule } from '@nestjs/graphql';
           subgraphs: [
             { name: 'user', url: 'http://localhost:3001/graphql' },
             { name: 'movie', url: 'http://localhost:3002/graphql' },
+            { name: 'rating', url: 'http://localhost:3003/graphql' },
           ],
         }),
       },

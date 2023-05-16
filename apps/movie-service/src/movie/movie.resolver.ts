@@ -1,12 +1,19 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { AuthUserId } from 'shared';
 
 import { CreateMovieInput } from './dto/create-movie.input';
 import { UpdateMovieInput } from './dto/update-movie.input';
 import { MovieService } from './movie.service';
-import { Movie } from './schemas/movie.schema';
+import { Movie, Rating } from './schemas/movie.schema';
 
-@Resolver()
+@Resolver(() => Movie)
 export class MovieResolver {
   constructor(private movieService: MovieService) {}
 
@@ -15,7 +22,6 @@ export class MovieResolver {
     @AuthUserId() userId: string,
     @Args('createMovieInput') createMovieInput: CreateMovieInput,
   ): Promise<Movie> {
-    console.log(userId);
     return this.movieService.create(userId, createMovieInput);
   }
 
@@ -32,7 +38,7 @@ export class MovieResolver {
     @AuthUserId() userId: string,
     @Args('_id') _id: string,
   ): Promise<Movie> {
-    return this.movieService.getById(_id, userId);
+    return this.movieService.getByIdAndUserId(_id, userId);
   }
 
   @Query((returns) => [Movie])
@@ -46,5 +52,10 @@ export class MovieResolver {
     @Args('_id') _id: string,
   ): Promise<Movie> {
     return this.movieService.deleteMovie(_id, userId);
+  }
+
+  @ResolveField('rating', () => Rating)
+  getRating(@Parent() movie: Movie) {
+    return { __typename: 'Rating', movieId: movie._id };
   }
 }

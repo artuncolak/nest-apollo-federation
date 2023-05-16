@@ -35,13 +35,22 @@ export class MovieService {
     });
   }
 
-  async getById(_id: string, userId: string): Promise<Movie> {
+  async getByIdAndUserId(_id: string, userId: string): Promise<Movie> {
     const movie = await this.movieModel.findById(_id);
     if (!movie) {
       throw new Error('Movie not found');
     }
 
     if (movie.userId.toString() !== userId) throw new ForbiddenException();
+
+    return movie;
+  }
+
+  async getById(_id: string): Promise<Movie> {
+    const movie = await this.movieModel.findById(_id);
+    if (!movie) {
+      throw new Error('Movie not found');
+    }
 
     return movie;
   }
