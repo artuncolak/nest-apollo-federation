@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "ikas-backend-assignment",
+  "name": "nest-apollo-federation",
   "author": "Artun Çolak <artuncolak97@gmail.com>",
   "scripts": {
     "build": "turbo run build",
